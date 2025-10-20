@@ -8,7 +8,7 @@ class Controls:
     def update(self):
         self.keys = pygame.key.get_pressed()
 
-    def move_input(self):
+    def move_input(self) -> tuple[int, int]:
         dx, dy = 0, 0
         if self.keys[pygame.K_UP]:
             dy = -1

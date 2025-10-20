@@ -1,29 +1,24 @@
-from fmfm.circleentity import CircleEntity
+import pygame
+
+from fmfm.camera import Camera
+from fmfm.location import ActualPosition, GridIndexes
 
 
-class Player(CircleEntity):
-    def __init__(self, x, y):
-        super().__init__(x, y, color=(0, 255, 0))
-        self.hp = 10
-        self.max_hp = 10
-        self.gold = 0
-        self.inventory = []
-        self.level = 1
-        self.exp = 0
-        self.name = "Hero"
+class OverworldData:
+    def __init__(self, x: int, y: int, color: tuple[int, int, int], radius: int):
+        self.xy_grid = GridIndexes(x, y)
+        self.xy_world = ActualPosition.from_grid_indexes(self.xy_grid)
+        self.color = color
+        self.radius = radius
 
-    def add_exp(self, amount):
-        self.exp += amount
-        if self.exp >= self.level * 10:
-            self.exp -= self.level * 10
-            self.level += 1
-            self.max_hp += 2
-            self.hp = self.max_hp
 
-    def take_damage(self, dmg):
-        self.hp -= dmg
-        if self.hp < 0:
-            self.hp = 0
+class Player:
+    def __init__(self):
+        self.overworld_data: OverworldData | None = None
 
-    def heal(self, amount):
-        self.hp = min(self.max_hp, self.hp + amount)
+    def add_overworld_data(self, x: int, y: int, color: tuple[int, int, int] = (255, 255, 255), radius: int = 10):
+        self.overworld_data = OverworldData(x, y, color, radius)
+
+    def draw_overworld(self, surface: pygame.Surface, camera: Camera):
+        screen_x, screen_y = camera.world_to_screen(self.overworld_data.xy_world.x, self.overworld_data.xy_world.y)
+        pygame.draw.circle(surface, self.overworld_data.color, (screen_x, screen_y), self.overworld_data.radius)
