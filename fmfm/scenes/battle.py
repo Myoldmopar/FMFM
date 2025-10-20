@@ -1,8 +1,7 @@
 import pygame
 
 from fmfm.sound import Song, SoundEffect
-from fmfm.scenes.base import SceneBase
-from fmfm.scenes.enums import Scene
+from fmfm.scenes.base import SceneBase, SceneType
 
 
 class FightScene(SceneBase):
@@ -15,12 +14,10 @@ class FightScene(SceneBase):
         self.game.sound.play_music(Song.Battle)
 
     def handle_event(self, event):
-
         if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
             for enemy_id in self.game.current_enemies:
                 self.game.overworld_enemies[enemy_id].is_threat = False
-            self.game.change_scene(Scene.Overworld)
-
+            self.game.change_scene(SceneType.Overworld)
         if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
             # "Defeat" the enemy when space is pressed
             self.game.sound.play_sound(SoundEffect.Attack)
@@ -28,7 +25,7 @@ class FightScene(SceneBase):
                 self.game.overworld_enemies[enemy_id].alive = False
                 # self.game.enemies.remove(self.game.current_enemy)
                 self.game.sound.play_sound(SoundEffect.Win)
-            self.game.change_scene(Scene.Overworld)
+            self.game.change_scene(SceneType.Overworld)
 
     def update(self, dt):
         pass

@@ -1,11 +1,13 @@
 import pygame
+
 from fmfm.game import Game
+from fmfm.geometry import GAME_WINDOW_HEIGHT, GAME_WINDOW_WIDTH
 
 
 def main():
     pygame.init()
-    screen: pygame.Surface = pygame.display.set_mode((800, 600))
-    pygame.display.set_caption("Grid RPG")
+    screen: pygame.Surface = pygame.display.set_mode((GAME_WINDOW_WIDTH, GAME_WINDOW_HEIGHT))
+    pygame.display.set_caption("FM FM")
     clock = pygame.time.Clock()
 
     game = Game(screen)

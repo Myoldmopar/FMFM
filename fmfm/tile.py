@@ -1,6 +1,6 @@
 import pygame
 
-GRID_SIZE = 50
+from fmfm.geometry import GRID_TILE_SIZE
 
 
 class Tile:
@@ -18,6 +18,6 @@ class Tile:
             color = (80, 80, 80)
         elif self.tile_type == "grass":
             color = (100, 200, 100)
-        screen_x = self.x * GRID_SIZE - GRID_SIZE // 2 - camera.x
-        screen_y = self.y * GRID_SIZE - GRID_SIZE // 2 - camera.y
-        pygame.draw.rect(screen, color, (screen_x, screen_y, GRID_SIZE, GRID_SIZE))
+        screen_x = self.x * GRID_TILE_SIZE - GRID_TILE_SIZE // 2 - camera.x
+        screen_y = self.y * GRID_TILE_SIZE - GRID_TILE_SIZE // 2 - camera.y
+        pygame.draw.rect(screen, color, (screen_x, screen_y, GRID_TILE_SIZE, GRID_TILE_SIZE))

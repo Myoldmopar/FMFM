@@ -1,3 +1,4 @@
+from enum import Enum
 import json
 from pathlib import Path
 
@@ -6,10 +7,17 @@ import pygame
 from fmfm.tile import Tile
 
 
+class TileMapSets(Enum):
+    Overworld = "overworld.json"
+
+
 class TileMap:
-    def __init__(self, filename: str):
+    def __init__(self, tile_map_to_load: TileMapSets):
         self.tiles: list[Tile] = []
-        self.load_from_file(filename)
+        if tile_map_to_load == TileMapSets.Overworld:
+            self.load_from_file("overworld.json")
+        else:
+            raise ValueError("Unknown tile map set")
 
     def load_from_file(self, filename: str):
         file_path = Path(__file__).resolve().parent / "assets" / "maps" / filename

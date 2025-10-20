@@ -1,8 +1,7 @@
 import pygame
 
 from fmfm.enemy import OverworldEnemy
-from fmfm.scenes.base import SceneBase
-from fmfm.scenes.enums import Scene
+from fmfm.scenes.base import SceneBase, SceneType
 from fmfm.scenes.battle import FightScene
 from fmfm.scenes.overworld import OverworldScene
 from fmfm.player import Player
@@ -25,9 +24,9 @@ class Game:
         self.current_enemies: list[int] = []
 
         # start in the overworld scene
-        self.loaded_scenes: dict[Scene, SceneBase] = {}
+        self.loaded_scenes: dict[SceneType, SceneBase] = {}
         self.current_scene: SceneBase | None = None
-        self.change_scene(Scene.Overworld)
+        self.change_scene(SceneType.Overworld)
 
     def handle_events(self) -> bool:
         for event in pygame.event.get():
@@ -47,11 +46,11 @@ class Game:
             self.current_scene.draw(self.screen)
         pygame.display.flip()
 
-    def change_scene(self, new_scene: Scene) -> None:
-        if new_scene == Scene.Overworld:
+    def change_scene(self, new_scene: SceneType) -> None:
+        if new_scene == SceneType.Overworld:
             if new_scene not in self.loaded_scenes:
                 self.loaded_scenes[new_scene] = OverworldScene(self)
-        elif new_scene == Scene.Battle:
+        elif new_scene == SceneType.Battle:
             if new_scene not in self.loaded_scenes:
                 self.loaded_scenes[new_scene] = FightScene(self)
         else:

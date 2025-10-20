@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from enum import Enum
 
 
 class SceneBase(ABC):
@@ -20,3 +21,9 @@ class SceneBase(ABC):
     @abstractmethod
     def re_enter(self):
         pass
+
+
+class SceneType(Enum):
+    Overworld = "overworld"
+    Battle = "battle"
+    Shop = "shop"
