@@ -57,3 +57,4 @@ class Game:
         else:
             raise NotImplementedError("Could not instantiate scene with type:" + str(new_scene))
         self.current_scene = self.loaded_scenes[new_scene]
+        self.current_scene.re_enter()

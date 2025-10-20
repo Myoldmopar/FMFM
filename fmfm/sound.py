@@ -21,7 +21,6 @@ class SoundManager:
         self.assets_path = Path(__file__).parent / "assets"
         self.sounds = self.load_sound()
         self.music_tracks = self.load_music()
-        self.music_tracks = {}
         self.current_music = None
 
     def load_sound(self) -> dict[SoundEffect, pygame.mixer.Sound]:
@@ -46,8 +45,8 @@ class SoundManager:
 
     def play_music(self, name: Song, loop: int = -1) -> None:
         """Loop = -1 plays indefinitely"""
-        path = self.music_tracks.get(name)
-        if path and self.current_music != name:
+        path = self.music_tracks[name]
+        if self.current_music != name:
             pygame.mixer.music.load(path)
             pygame.mixer.music.play(loop)
             self.current_music = name

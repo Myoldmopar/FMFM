@@ -16,3 +16,7 @@ class SceneBase(ABC):
     @abstractmethod
     def draw(self, surface):
         pass
+
+    @abstractmethod
+    def re_enter(self):
+        pass

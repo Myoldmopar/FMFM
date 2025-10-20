@@ -31,6 +31,9 @@ class OverworldScene(SceneBase):
         self.game.sound.play_music(Song.Overworld)
         self.map = TileMap("overworld.json")
 
+    def re_enter(self):
+        self.game.sound.play_music(Song.Overworld)
+
     def handle_event(self, event):
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_g:
@@ -92,10 +95,6 @@ class OverworldScene(SceneBase):
             enemy.draw(surface, self.camera)
         if self.debug_grid:
             self._draw_grid(surface)
-
-    @staticmethod
-    def _check_collision(a, b):
-        return abs(a.x - b.x) < GRID_SIZE and abs(a.y - b.y) < GRID_SIZE
 
     def _draw_grid(self, surface):
         color = (60, 60, 60)

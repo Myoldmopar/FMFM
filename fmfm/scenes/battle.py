@@ -11,6 +11,9 @@ class FightScene(SceneBase):
         self.font = pygame.font.SysFont(None, 48)
         self.game.sound.play_music(Song.Battle)
 
+    def re_enter(self):
+        self.game.sound.play_music(Song.Battle)
+
     def handle_event(self, event):
 
         if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
