@@ -24,28 +24,24 @@ class Game:
 
         # start in the overworld scene
         self.loaded_scenes: dict[SceneType, SceneBase] = {}
-        self.current_scene: SceneBase | None = None
-        self.change_scene(SceneType.Overworld)
+        self.current_scene = self.change_scene(SceneType.Overworld)
 
     def handle_events(self) -> bool:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.running = False
                 return False
-            if self.current_scene:
-                self.current_scene.handle_event(event)
+            self.current_scene.handle_event(event)
         return True
 
     def update(self, dt) -> None:
-        if self.current_scene:
-            self.current_scene.update(dt)
+        self.current_scene.update(dt)
 
     def draw(self, screen: pygame.Surface) -> None:
-        if self.current_scene:
-            self.current_scene.draw(screen)
+        self.current_scene.draw(screen)
         pygame.display.flip()
 
-    def change_scene(self, new_scene: SceneType) -> None:
+    def change_scene(self, new_scene: SceneType) -> SceneBase:
         if new_scene == SceneType.Overworld:
             if new_scene not in self.loaded_scenes:
                 self.loaded_scenes[new_scene] = OverworldScene(self)
@@ -56,3 +52,4 @@ class Game:
             raise NotImplementedError("Could not instantiate scene with type:" + str(new_scene))
         self.current_scene = self.loaded_scenes[new_scene]
         self.current_scene.re_enter()
+        return self.current_scene
