@@ -9,8 +9,7 @@ from fmfm.sound import SoundManager
 
 
 class Game:
-    def __init__(self, screen: pygame.Surface):
-        self.screen = screen
+    def __init__(self):
         self.running = True
 
         # --- Persistent game state ---
@@ -41,9 +40,9 @@ class Game:
         if self.current_scene:
             self.current_scene.update(dt)
 
-    def draw(self) -> None:
+    def draw(self, screen: pygame.Surface) -> None:
         if self.current_scene:
-            self.current_scene.draw(self.screen)
+            self.current_scene.draw(screen)
         pygame.display.flip()
 
     def change_scene(self, new_scene: SceneType) -> None:

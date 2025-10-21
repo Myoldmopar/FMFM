@@ -10,14 +10,14 @@ def main():
     pygame.display.set_caption("FM FM")
     clock = pygame.time.Clock()
 
-    game = Game(screen)
+    game = Game()
     running = True
 
     while running:
         dt = clock.tick(60) / 1000.0  # delta time in seconds
         running = game.handle_events()
         game.update(dt)
-        game.draw()
+        game.draw(screen)
 
     pygame.quit()
 
