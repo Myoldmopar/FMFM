@@ -109,14 +109,14 @@ class OverworldScene(SceneBase):
     def debug_data(self, surface):
         color = (255, 255, 255)
         player = self.game.player
-        text = self.font.render(f"--DEBUG DATA--",True,color)
+        text = self.font.render("--DEBUG DATA--", True, color)
         surface.blit(text, (500, 10))
         text = self.font.render(
-            f"Player Position ({int(player.overworld_x)}, {int(player.overworld_y)})", True,color
+            f"Player Position ({int(player.overworld_x)}, {int(player.overworld_y)})", True, color
         )
         surface.blit(text, (500, 40))
         text = self.font.render(
-            f"Player Move Target ({int(self.move_target_x)}, {int(self.move_target_y)})",True,color
+            f"Player Move Target ({int(self.move_target_x)}, {int(self.move_target_y)})", True, color
         )
         surface.blit(text, (500, 70))
 
