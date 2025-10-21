@@ -18,30 +18,21 @@ class SoundEffect(Enum):
 class SoundManager:
     def __init__(self):
         pygame.mixer.init()
-        self.assets_path = Path(__file__).parent / "assets"
-        self.sounds = self.load_sound()
-        self.music_tracks = self.load_music()
+        sounds_path = Path(__file__).parent / "assets" / "sounds"
+        self.sounds = {
+            SoundEffect.Attack: pygame.mixer.Sound(sounds_path / "sword.wav"),
+            SoundEffect.Bonk: pygame.mixer.Sound(sounds_path / "bonk.mp3"),
+            SoundEffect.Win: pygame.mixer.Sound(sounds_path / "melee.wav"),
+        }
+        music_path = Path(__file__).parent / "assets" / "music"
+        self.music_tracks = {
+            Song.Overworld: music_path / "overworld_theme.ogg",
+            Song.Battle: music_path / "fight.wav",
+        }
         self.current_music = None
 
-    def load_sound(self) -> dict[SoundEffect, pygame.mixer.Sound]:
-        sounds = {
-            SoundEffect.Attack: pygame.mixer.Sound(self.assets_path / "sounds" / "sword.wav"),
-            SoundEffect.Bonk: pygame.mixer.Sound(self.assets_path / "sounds" / "bonk.mp3"),
-            SoundEffect.Win: pygame.mixer.Sound(self.assets_path / "sounds" / "melee.wav"),
-        }
-        return sounds
-
-    def play_sound(self, name) -> None:
-        sound = self.sounds.get(name)
-        if sound:
-            sound.play()
-
-    def load_music(self) -> dict[Song, Path]:
-        music = {
-            Song.Overworld: self.assets_path / "music" / "overworld_theme.ogg",
-            Song.Battle: self.assets_path / "music" / "fight.wav",
-        }
-        return music
+    def play_sound(self, name: SoundEffect) -> None:
+        self.sounds[name].play()
 
     def play_music(self, name: Song, loop: int = -1) -> None:
         """Loop = -1 plays indefinitely"""
