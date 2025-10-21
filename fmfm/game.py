@@ -10,15 +10,10 @@ from fmfm.sound import SoundManager
 
 class Game:
     def __init__(self):
-        self.running = True
-
-        # --- Persistent game state ---
-        self.player = Player()
-
-        # Initialize all sound assets and management
         self.sound = SoundManager()
 
         # We will hold IDs of the current enemies being battled here to pass info back to overworld after the battle
+        self.player = Player()
         self.overworld_enemies: dict[int, OverworldEnemy] = {}
         self.current_enemies: list[int] = []
 
@@ -29,8 +24,10 @@ class Game:
     def handle_events(self) -> bool:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                self.running = False
                 return False
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_q:
+                    return False
             self.current_scene.handle_event(event)
         return True
 

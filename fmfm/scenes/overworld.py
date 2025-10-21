@@ -16,7 +16,7 @@ MOVE_SPEED = 200
 class OverworldScene(SceneBase):
     def __init__(self, game):
         super().__init__(game)
-        self.game.player.add_overworld_data(0, 0, (200, 200, 255), 10)
+        self.game.player.add_overworld_data(500, 600, (200, 200, 255), 10)
         self.game.overworld_enemies = {
             randrange(1, 2**80): OverworldEnemy(300, 200),
             randrange(1, 2**80): OverworldEnemy(400, 300)
